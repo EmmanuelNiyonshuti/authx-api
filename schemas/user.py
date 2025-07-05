@@ -17,3 +17,7 @@ class LoginCredentials(BaseModel):
 class UserUpdate(BaseModel):
     name: str | None
     email: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
