@@ -1,6 +1,9 @@
-from fastapi import FastAPI
-from contextlib import asynccontextmanager
 import logging
+
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+
 from .core.database import db_health_check
 from .core.logging import setup_logging
 from .routers.auth_routes import auth_router
@@ -30,13 +33,3 @@ app.include_router(user_router)
 @app.get("/")
 async def root():
     return {"msg": "Up and Running"}
-
-
-# @app.post("/token")
-# async def login_for_access_token(
-#     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-#     session: SessionDep
-#     ) -> Token:
-#     user = AuthService.authenticate_user(session, form_data)
-#     access_token = create_access_token(data={"user_id": user.id})
-#     return Token(access_token=access_token, token_type="bearer")

@@ -1,6 +1,7 @@
-from sqlmodel import create_engine, SQLModel, text
 import logging
-from sqlmodel import Session
+
+from sqlmodel import Session, create_engine, text
+
 from .config import get_settings
 
 connect_args = {"check_same_thread": False}
@@ -8,8 +9,6 @@ engine = create_engine(
     get_settings().database_url,
     connect_args=connect_args
     )
-# def init_db():
-#     SQLModel.metadata.create_all(engine)
 
 logger = logging.getLogger(__name__)
 

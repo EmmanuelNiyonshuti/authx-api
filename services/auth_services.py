@@ -1,8 +1,10 @@
 from fastapi import HTTPException
+
 from sqlmodel import Session, select
-from ..schemas.user import UserCreate, UserRead, LoginCredentials, UserUpdate
+
+from ..schemas.user import UserCreate, UserRead
 from ..models.user import User
-from ..utils.security import get_password_hash, verify_password
+from ..core.security import get_password_hash, verify_password
 
 class AuthService:
     @staticmethod

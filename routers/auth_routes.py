@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends, Body
+from typing import Annotated 
+
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlmodel import Session
-from typing import Annotated
-from ..deps import SessionDep
+
+from ..deps import SessionDep, CurrentUser
 from ..services.auth_services import AuthService
-from ..schemas.user import UserCreate, UserRead, UserUpdate, LoginCredentials, Token
-from ..utils.security import  create_access_token
+from ..schemas.user import UserCreate, UserRead, Token
+from ..core.security import create_access_token
 
 auth_router = APIRouter(
     tags=["Authentication"],
@@ -30,5 +31,3 @@ async def login_for_access_token(
     user = AuthService.authenticate_user(session, form_data)
     access_token = create_access_token(data={"user_id": user.id})
     return Token(access_token=access_token, token_type="bearer")
-
-

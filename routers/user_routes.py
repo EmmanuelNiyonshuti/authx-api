@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
+
 from ..schemas.user import UserRead
-from ..utils.security import get_current_user
+from ..deps import CurrentUser
 
 user_router = APIRouter(
     tags=["Users"],
@@ -9,6 +10,6 @@ user_router = APIRouter(
 
 @user_router.get("/me")
 async def read_profile(
-    current_user: UserRead = Depends(get_current_user)
+    current_user: CurrentUser
     ):
     return current_user

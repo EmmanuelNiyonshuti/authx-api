@@ -12,3 +12,6 @@ wheels/
 app.db
 app.log
 .env
+.ruff_cache
+app.log
+
