@@ -4,13 +4,13 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from .core.database import db_health_check
-from .core.logging import setup_logging
-from .routers.auth_routes import auth_router
-from .routers.user_routes import user_router
+from app.core.database import db_health_check
+from app.core.logging import setup_logging
+from app.api.main import api_router
 
 setup_logging()
 logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,15 +21,11 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Shutting down application...")
 
+
 app = FastAPI(
     title="Authx-api",
     description="User Authentication and Management API",
     lifespan=lifespan,
     root_path="/api",
 )
-app.include_router(auth_router)
-app.include_router(user_router)
-
-@app.get("/")
-async def root():
-    return {"msg": "Up and Running"}
+app.include_router(api_router)
