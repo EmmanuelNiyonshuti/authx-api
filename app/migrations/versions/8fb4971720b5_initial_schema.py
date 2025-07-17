@@ -1,8 +1,8 @@
-"""Add created_at and updated_at fields
+"""initial schema
 
-Revision ID: fd8a5897a8be
-Revises: 3026b4e529ec
-Create Date: 2025-07-10 19:09:57.358812
+Revision ID: 8fb4971720b5
+Revises:
+Create Date: 2025-07-17 15:20:03.978734
 
 """
 
@@ -14,8 +14,8 @@ import sqlmodel
 
 
 # revision identifiers, used by Alembic.
-revision: str = "fd8a5897a8be"
-down_revision: Union[str, None] = "3026b4e529ec"
+revision: str = "8fb4971720b5"
+down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

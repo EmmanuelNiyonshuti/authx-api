@@ -6,12 +6,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     app_env: str
     database_url: str
+
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int = 15
-    superuser: str
-    superuser_password: str
 
+    superuser_username: str
+    superuser_email: str
+    superuser_password: str
     model_config = SettingsConfigDict(env_file=".env")
 
 
