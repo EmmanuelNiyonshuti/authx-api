@@ -5,7 +5,7 @@ from app.core.config import get_settings
 
 def test_login(client: TestClient) -> None:
     login_data = {
-        "username": get_settings().superuser,
+        "username": get_settings().superuser_username,
         "password": get_settings().superuser_password,
     }
     r = client.post("http://127.0.1:8000/api/auth/login/access_token", data=login_data)
@@ -25,6 +25,6 @@ def test_login_invalid_username(client: TestClient) -> None:
 
 
 def test_login_invalid_password(client: TestClient) -> None:
-    login_data = {"username": get_settings().superuser, "password": "fake_password"}
+    login_data = {"username": get_settings().superuser_username, "password": "fake_password"}
     r = client.post("http://127.0.1:8000/api/auth/login/access_token", data=login_data)
     assert r.status_code == 401
