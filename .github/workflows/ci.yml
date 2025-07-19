@@ -33,7 +33,7 @@ jobs:
       - name: Install the project
         run: uv sync --locked --all-extras --dev
       - name: Prepare database
-        run: bash app/scripts/prestart.sh
+        run: uv run bash app/scripts/prestart.sh
 
       - name: Run tests
         run: uv run pytest
