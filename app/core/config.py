@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     app_env: str
     database_url: str
 
+    api_url: str = "http://testserver/api"
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int = 15
