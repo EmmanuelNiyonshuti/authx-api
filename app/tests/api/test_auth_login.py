@@ -23,4 +23,3 @@ def test_login_failure_invalid_credentials(client: TestClient) -> None:
     }
     r = client.post(f"{LOGIN_URL}", data=login_data)
     assert r.status_code == 401
-
