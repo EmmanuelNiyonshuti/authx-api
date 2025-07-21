@@ -46,5 +46,4 @@ async def get_current_user(session: SessionDep, token: TokenDep):
         raise credentials_exception
     return user
 
-
 CurrentUser = Annotated[User, Depends(get_current_user)]
