@@ -20,10 +20,9 @@ def register_user(session: Session, user_data: UserCreate) -> UserRead:
     session.refresh(new_user)
     return UserRead.model_validate(new_user, from_attributes=True)
 
+
 def authenticate_user(session: Session, form_data):
-    user = session.exec(
-        select(User).where(User.username == form_data.username)
-    ).first()
+    user = session.exec(select(User).where(User.username == form_data.username)).first()
     if not user or not verify_password(form_data.password, user.password):
         raise HTTPException(
             status_code=401,
@@ -34,20 +33,18 @@ def authenticate_user(session: Session, form_data):
 
 
 async def delete_user(
-    session: Session,
-    current_user: CurrentUser,
-    user_id: str) -> None:
+    session: Session, current_user: CurrentUser, user_id: str
+) -> None:
     user = session.exec(select(User).where(User.id == user_id)).first()
     if not user:
         raise HTTPException(
             status_code=404,
             detail=f"User with id {user_id} does not exists",
         )
-    if not current_user.is_superuser:
+    if not (current_user.is_superuser or current_user.id == user.id):
         raise HTTPException(
             status_code=403,
-            detail="Forbidden, you don't have permissions to perform this action."
+            detail="Forbidden, you don't have permissions to perform this action.",
         )
     session.delete(user)
     session.commit()
-    

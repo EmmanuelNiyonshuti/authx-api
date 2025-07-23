@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
-
+from fastapi import HTTPException
 from sqlmodel import Session, select
 
 from passlib.context import CryptContext
@@ -34,4 +34,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
 
 def get_user_by_id(session: Session, user_id: str):
     user = session.exec(select(User).where(User.id == user_id)).first()
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail=f"User with id {user_id} does not exist",
+        )
     return UserRead.model_validate(user, from_attributes=True)
