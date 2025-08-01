@@ -14,9 +14,12 @@ auth_router = APIRouter(
 )
 
 
-@auth_router.post("/register", status_code= status.HTTP_201_CREATED, response_model=UserRead)
+@auth_router.post(
+    "/register", status_code=status.HTTP_201_CREATED, response_model=UserRead
+)
 async def register(user_data: UserCreate, session: SessionDep):
     return crud.register_user(session, user_data)
+
 
 @auth_router.post("/login/access_token")
 async def login_for_access_token(
@@ -26,5 +29,5 @@ async def login_for_access_token(
     OAuth2 compatible token login, get an access token for future requests
     """
     user = crud.authenticate_user(session, form_data)
-    access_token = create_access_token(data={"user_id": user.id})
+    access_token = create_access_token(user.id)
     return Token(access_token=access_token, token_type="bearer")
