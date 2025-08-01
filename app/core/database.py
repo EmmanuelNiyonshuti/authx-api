@@ -34,7 +34,7 @@ def init_db(session: Session) -> None:
         if user.is_superuser:
             return {"message": "Database already initialized", "created": False}
         else:
-            return {"message": "email already exists"}
+            return {"message": f"user with {user.email} already exists"}
     superuser = User(
         username=settings.superuser_username,
         email=settings.superuser_email,

@@ -14,6 +14,7 @@ A simple user authentication and management REST API built with FastAPI for lear
 - `POST /api/auth/register` - Create new user
 - `POST /api/auth/login` - User login (returns JWT token)
 - `GET /api/users/me` - Get user profile (requires auth)
+- `DELETE /api/users/:id` - DELETE user (requires auth)
 
 ## Getting Started
 

@@ -29,5 +29,5 @@ async def login_for_access_token(
     OAuth2 compatible token login, get an access token for future requests
     """
     user = crud.authenticate_user(session, form_data)
-    access_token = create_access_token(data={"user_id": user.id})
+    access_token = create_access_token(user.id)
     return Token(access_token=access_token, token_type="bearer")
